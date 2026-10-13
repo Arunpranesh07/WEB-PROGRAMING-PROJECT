@@ -21,7 +21,7 @@ const ResidentDashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [complaintsRes, statsRes, supplyRes] = await指示 = await Promise.all([
+        const [complaintsRes, statsRes, supplyRes] = await Promise.all([
           api.get('/complaints'),
           api.get('/complaints/stats'),
           api.get('/supply'),
