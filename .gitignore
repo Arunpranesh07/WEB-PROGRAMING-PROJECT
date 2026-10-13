@@ -1,0 +1,32 @@
+# Environments
+venv/
+backend/venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# SQLite / uploads
+*.db
+*.sqlite3
+backend/water_management.db
+backend/uploads/complaints/*
+!backend/uploads/complaints/.gitkeep
+
+# IDE / System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
