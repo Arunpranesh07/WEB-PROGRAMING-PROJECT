@@ -2,7 +2,9 @@ import os
 import sys
 import time
 import random
-import requests
+import json
+import urllib.request
+import urllib.error
 
 API_URL = os.getenv("AQUAFLOW_API_URL", "http://localhost:8000/api/sensors/readings")
 API_KEY = os.getenv("SENSOR_API_KEY", "aquaflow-sensor-secret-key-2026")
@@ -26,17 +28,25 @@ def simulate_reading(sensor):
         "tank_level": tank_level,
         "battery_level": battery_level,
     }
-    headers = {
-        "Content-Type": "application/json",
-        "X-API-Key": API_KEY,
-    }
+    data_bytes = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        API_URL,
+        data=data_bytes,
+        headers={
+            "Content-Type": "application/json",
+            "X-API-Key": API_KEY,
+        },
+        method="POST"
+    )
 
     try:
-        res = requests.post(API_URL, json=payload, headers=headers, timeout=5)
-        if res.status_code == 201:
-            print(f"[{sensor['id']}] Telemetry delivered: Flow={flow_rate}L/m, Tank={tank_level}%, Batt={battery_level}%")
-        else:
-            print(f"[{sensor['id']}] Failed to submit telemetry. HTTP {res.status_code}: {res.text}")
+        with urllib.request.urlopen(req, timeout=5) as response:
+            if response.status in (200, 201):
+                print(f"[{sensor['id']}] Telemetry delivered: Flow={flow_rate}L/m, Tank={tank_level}%, Batt={battery_level}%")
+            else:
+                print(f"[{sensor['id']}] Response: HTTP {response.status}")
+    except urllib.error.HTTPError as e:
+        print(f"[{sensor['id']}] HTTP Error {e.code}: {e.read().decode()}")
     except Exception as e:
         print(f"[{sensor['id']}] Network error connecting to {API_URL}: {e}")
 
@@ -51,11 +61,10 @@ def main():
         print(f"\n--- Broadcast Cycle #{iteration} ---")
         for s in SENSORS:
             simulate_reading(s)
-            time.sleep(0.5)
+            time.sleep(0.3)
 
-        # In non-interactive test run, run 1 cycle if specified
         if len(sys.argv) > 1 and sys.argv[1] == "--once":
-            print("\nSingle run complete.")
+            print("\nSingle test cycle complete.")
             break
 
         time.sleep(5)
