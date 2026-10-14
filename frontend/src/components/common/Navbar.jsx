@@ -108,11 +108,11 @@ const Navbar = () => {
                 {/* User Pill & Role Badge */}
                 <div className="hidden sm:flex items-center pl-3 border-l border-slate-200 space-x-2">
                   <div className="w-8 h-8 rounded-full bg-ocean-100 text-ocean-700 flex items-center justify-center font-bold text-sm">
-                    {user.name.charAt(0).toUpperCase()}
+                    {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <div className="text-left leading-tight">
-                    <p className="text-sm font-semibold text-slate-800 leading-none">{user.name}</p>
-                    <span className="text-[11px] text-slate-500 capitalize">{user.role}</span>
+                    <p className="text-sm font-semibold text-slate-800 leading-none">{user?.name || 'Resident'}</p>
+                    <span className="text-[11px] text-slate-500 capitalize">{user?.role || 'resident'}</span>
                   </div>
                 </div>
 

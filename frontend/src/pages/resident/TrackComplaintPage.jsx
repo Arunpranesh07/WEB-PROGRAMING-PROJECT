@@ -213,7 +213,7 @@ const TrackComplaintPage = () => {
                   </span>
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-full bg-ocean-200 text-ocean-800 flex items-center justify-center font-bold">
-                      {complaint.assignments[0].staff_name.charAt(0)}
+                      {complaint.assignments[0].staff_name ? complaint.assignments[0].staff_name.charAt(0) : 'T'}
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-900">{complaint.assignments[0].staff_name}</h4>

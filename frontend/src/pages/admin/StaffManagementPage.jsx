@@ -106,7 +106,7 @@ const StaffManagementPage = () => {
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-ocean-600 to-aqua-500 text-white flex items-center justify-center font-bold text-base shadow-xs">
-                    {s.staff_name.charAt(0)}
+                    {s.staff_name ? s.staff_name.charAt(0) : 'T'}
                   </div>
                   <div>
                     <h3 className="font-bold text-sm text-slate-900">{s.staff_name}</h3>
