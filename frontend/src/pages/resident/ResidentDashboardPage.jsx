@@ -6,7 +6,7 @@ import { useNotifications } from '../../context/NotificationContext';
 import StatusBadge from '../../components/common/StatusBadge';
 import PriorityBadge from '../../components/common/PriorityBadge';
 import { 
-  Droplet, AlertCircle, CheckCircle, Clock, Calendar, 
+  Droplet, AlertCircle, CheckCircle, CheckCircle2, Clock, Calendar, 
   PlusCircle, Search, MapPin, ArrowRight, Lightbulb, Bell 
 } from 'lucide-react';
 
